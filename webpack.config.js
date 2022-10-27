@@ -7,8 +7,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'player.js',
     library: {
-      name: "VideomatikPlayer",
+      name: 'VideomatikPlayer',
       type: 'umd',
-    }
+    },
   },
 };
