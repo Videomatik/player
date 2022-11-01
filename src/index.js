@@ -24,19 +24,20 @@ class VideomatikPlayer {
     this.templateId = templateId;
     this.apiKey = apiKey;
 
-    const onMessage = (event) => {
-      const { data } = event;
-      if (data.action === 'animationDuration') {
-        this.animationDuration = Number(data.animationDuration);
-      }
-      if (data.action === 'currentTime') {
-        this.currentTime = data.currentTime;
-      }
-      if (data.action === 'playerState') {
-        this.playerState = data.playerState;
-      }
-    };
-    window.addEventListener('message', onMessage);
+    window.addEventListener('message', this.onMessage);
+  }
+
+  onMessage(event) {
+    const { data } = event;
+    if (data.action === 'animationDuration') {
+      this.animationDuration = Number(data.animationDuration);
+    }
+    if (data.action === 'currentTime') {
+      this.currentTime = data.currentTime;
+    }
+    if (data.action === 'playerState') {
+      this.playerState = data.playerState;
+    }
   }
 
   destroy() {
