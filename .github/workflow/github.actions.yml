@@ -1,9 +1,0 @@
-name: 🛠️ Develop Test
-run-name: Develop Test 🚀
-on: [push]
-jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "${{ github }}"
-      - run: echo "🍏 This job's status is ${{ job }}."
