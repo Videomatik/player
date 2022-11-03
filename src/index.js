@@ -27,15 +27,20 @@ class VideomatikPlayer {
 
   onMessage = (event) => {
     const { data } = event;
-    if (data.action === '_onLoad') {
-      this.compositions = data.payload.compositions;
-      this.duration = data.payload.duration;
-    }
-    if (data.action === 'currentTime') {
-      this.currentTime = data.currentTime;
-    }
-    if (data.action === 'playerState') {
-      this.playerState = data.playerState;
+    // eslint-disable-next-line default-case
+    switch (data.action) {
+      case '_onLoad':
+        this.compositions = data.payload.compositions;
+        this.duration = data.payload.duration;
+        break;
+
+      case 'currentTime':
+        this.currentTime = data.payload.currentTime;
+        break;
+
+      case 'playerState':
+        this.playerState = data.payload.playerState;
+        break;
     }
   };
 
