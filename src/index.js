@@ -41,6 +41,9 @@ class VideomatikPlayer {
       case 'playerState':
         this.playerState = data.payload.playerState;
         break;
+
+      case 'error':
+        throw new Error(data.payload.error);
     }
   };
 
