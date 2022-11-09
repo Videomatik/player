@@ -3,7 +3,6 @@ class VideomatikPlayer {
   constructor(containerSelector, options) {
     const {
       __playerURL,
-      __apiURL,
       apiKey,
       templateId,
       compositionId = 'default',
@@ -19,7 +18,6 @@ class VideomatikPlayer {
     container.appendChild(iframe);
 
     this.iframe = iframe;
-    this.__apiURL = __apiURL;
     this.__playerURL = __playerURL;
     this.templateId = templateId;
     this.apiKey = apiKey;
@@ -27,18 +25,27 @@ class VideomatikPlayer {
     window.addEventListener('message', this.onMessage);
   }
 
-  onMessage(event) {
+  onMessage = (event) => {
     const { data } = event;
-    if (data.action === 'animationDuration') {
-      this.animationDuration = Number(data.animationDuration);
+    // eslint-disable-next-line default-case
+    switch (data.action) {
+      case '_onLoad':
+        this.compositions = data.payload.compositions;
+        this.duration = data.payload.duration;
+        break;
+
+      case 'currentTime':
+        this.currentTime = data.payload.currentTime;
+        break;
+
+      case 'playerState':
+        this.playerState = data.payload.playerState;
+        break;
+
+      case 'error':
+        throw new Error(data.payload.error);
     }
-    if (data.action === 'currentTime') {
-      this.currentTime = data.currentTime;
-    }
-    if (data.action === 'playerState') {
-      this.playerState = data.playerState;
-    }
-  }
+  };
 
   destroy() {
     window.removeEventListener('message', this.onMessage);
@@ -88,12 +95,7 @@ class VideomatikPlayer {
   }
 
   async getCompositions() {
-    const response = await fetch(`${this.__apiURL}/v1/templates/${this.templateId}/compositions`, {
-      headers: {
-        Authorization: this.apiKey,
-      },
-    });
-    return response.json();
+    return this.compositions;
   }
 
   getCurrentTime() {
@@ -101,16 +103,7 @@ class VideomatikPlayer {
   }
 
   getDuration() {
-    return this.animationDuration;
-  }
-
-  async getFonts() {
-    const response = await fetch(`${this.__apiURL}/player/v1/get-user-fonts`, {
-      headers: {
-        Authorization: this.apiKey,
-      },
-    });
-    return response.json();
+    return this.duration;
   }
 
   getIframe() {
