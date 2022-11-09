@@ -94,7 +94,6 @@ class VideomatikPlayer {
     }, '*');
   }
 
-  // TODO: trazer as composições no carregamento da animation e salvar dentro do player (this)
   async getCompositions() {
     return this.compositions;
   }
