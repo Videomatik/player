@@ -94,7 +94,7 @@ class VideomatikPlayer {
     }, '*');
   }
 
-  async getCompositions() {
+  getCompositions() {
     return this.compositions;
   }
 
