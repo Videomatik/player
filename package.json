@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack --watch",
-    "server": "http-server"
+    "server": "http-server",
+    "eslint": "eslint ."
   },
   "repository": {
     "type": "git",
