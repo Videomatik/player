@@ -60,8 +60,8 @@ class VideomatikPlayer {
     this.iframe.contentWindow.postMessage({ action: 'pause' }, '*');
   }
 
-  seekTo(frame) {
-    this.iframe.contentWindow.postMessage({ action: 'seekTo', frame }, '*');
+  seekTo(time) {
+    this.iframe.contentWindow.postMessage({ action: 'seekTo', time }, '*');
   }
 
   setCustomJSON(customJSON) {
