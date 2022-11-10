@@ -1,14 +1,26 @@
-# Videomatik PLAYER
+# Videomatik Player SDK (Alpha!)
 
-This module provides easy access to Videomatik's PLAYER to get a preview of your video template.
+```
+⚠ This lib is current in alpha version and still in development, we are accepting feedbacks from the developers. ⚠
+```
+
+This module provides easy access to Videomatik's Player to get a preview of your video template with your customizations via the customJSON data.
+
+Check the [Support section](#support) for help.
 
 # Installation
 
 ```bash
-npm i --save @videomatik/player
+npm i --save @videomatik/player@latest
 ```
 
 # Usage
+
+Simple usage example rendering the player inside a div element:
+
+```javascript
+TODO
+```
 
 ## Authentication
 
@@ -25,138 +37,142 @@ const player = new VideomatikPlayer('<css selector or HTMLElement instance>', {
 });
 ```
 
-## Templates
+## Templates and CustomJSON
 
-Videomatik is based on templates that can be seen on the platform browsing all templates available to edit. If you have access to private templates they will be available through the API too.
-Templates may also have multiple compositions, which are different resolutions of the video. The most commons compositions IDs are `'default'`, usually a Vertical video (1080x1920), and `'feed'`, which is a square video (1080x1080).
-
-## Custom JSON Concept
-
-The customJSON is an object associated with a video Template with all the attributes you can edit to customize a video using a template. When requesting a customJSON from a template or sending your customized JSON to request a Video, it should have the following attributes:
-
-  - **images**: Array of objects with Images available to edit.
-    - Images should contain a `source` attribute which should be a public URL with the image to replace in the video. It should be in JPG or PNG format.
-  - **texts**: Array of objects with Texts available to edit.
-    - Texts may contain attributes like the text itself, font family, font size, font-weight, color, and more.
-  - **shapes**: Array of objects with Shapes available to edit.
-    - Shapes have an attribute `color` which is the color of the shape.
-  - **colors**: (Optional) Array of objects with Colors available to edit.
-  - **toggles**: (Optional) Array of objects with Toggle features available to edit.
-
-Some templates may be available only through the API and their Custom JSON may be different.
+If you are not familiar with the Template and CustomJSON entities for Videomatik, please check our [API SDK documentation](https://github.com/Videomatik/node-sdk) for more information. The same concept of customJSON applys to the Videomatik Player.
 
 # Methods
 
+## Update Player Methods
+## setTemplate(templateId: String, [compositionId: String, customJSON: Object])
+ - templateId: Id of the Template to set
+ - compositionId *(Optional)*: Id of the template composition to set. Default is `'default'`
+ - customJSON *(Optional)*: Initial customJSON to be passed on the first player render.
 
-## Play: play()
-This method will play the template animation.
+Updates the current template on the player, it will load the new template if not loaded yet.
+
+### Errors
+// TODO Errors
+
+Example:
 ```javascript
-player.play()
+player.setTemplate(templateId, compositionId, customJSON)
 ```
 
-## Pause: pause()
-This method will pause the template animation.
-```javascript
-player.pause()
-```
-## Seek To: seekTo(frame)
-This method sets the current frame of the animation. You need to pass the desired frame to the function.
-```javascript
-player.seekTo(frame)
-```
-
-## Destroy: destroy()
-This method will destroy the player and remove all event listeners.
-```javascript
-player.destroy()
-```
-
-## Get Template Compositions: getCompositions()
-This method will return the compositions for the playing animation. It will return an array of objects, where each object is an composition of the template.
+## getCompositions()
+Returns the compositions available for the current video Template. 
+Returns `Array[Object]`.
 ```javascript
 player.getCompositions()
 
 // Response Example:
-// [ 
-//   {
-//     compositionId: 'default', 
-//     displayName: 'Vertical', 
-//     width: 1080, 
-//     height: 1920
-//   },
-//   {
-//     compositionId: 'feed', 
-//     displayName: 'Quadrado', 
-//     width: 1080, 
-//     height: 1080
-//   }
-// ]
+[ 
+  {
+    compositionId: 'default', 
+    displayName: 'Vertical', 
+    width: 1080, 
+    height: 1920
+  },
+  {
+    compositionId: 'feed', 
+    displayName: 'Quadrado', 
+    width: 1080, 
+    height: 1080
+  }
+]
 ```
 
-## Get Animation Current Time: getCurrentTime()
-This method will return the current frame of the animation. It will return the value in seconds.
+## setComposition(compositionId: String)
+- compositionId: Id of the Composition to set
+Change the composition of your template, it will load the new composition video if not loaded yet.
+
+```javascript
+player.setComposition('feed')
+```
+
+## setCustomJSON(customJSON: Object)
+- customJSON`: Valid customJSON object with customized parameters for the video.
+
+Updates the custom JSON of the video.
+```javascript
+player.setCustomJSON({
+  // TODO
+})
+```
+
+## setSize({ height: Number, width: Number })
+Updates the size of the video player. Only one dimension is required. The player will fit the dimension specified keep the video aspect ratio.
+```javascript
+player.setSize({ height: 1280, width: 720 })
+```
+
+## play()
+Play the video player.
+```javascript
+player.play()
+```
+
+## pause()
+Pause the video player.
+```javascript
+player.pause()
+```
+## seekTo(time: Number)
+ - time: in Seconds
+
+Sets the current time of the player. The time must be between 0 and the video duration.
+```javascript
+player.seekTo(12.5) // Will seek to 12.5 seconds of the video
+```
+
+
+## getCurrentTime()
+This method will return the current time(seconds) of the video.
 ```javascript
 player.getCurrentTime()
 
 // Response Example:
-// 2.91
+2.91
 
 ```
 
-## Get Animation Duration: getDuration()
-This method will return the total duration in seconds of the animation. It will return the value in seconds.
+## getDuration()
+This method will return the total duration in seconds of the video. It will return the value in seconds.
 ```javascript
 player.getDuration()
 
 // Response Example:
-// 15
+15
 ```
 
-## Get Iframe: getIframe()
-This method will return the iframe HTML tag.
-```javascript
-player.getIframe()
-
-// Response Example:
-// <iframe 
-//  src="" 
-//  width="100%" 
-//  height="100%" >
-// </iframe>
-```
-
-## Get Player State: getPlayerState()
+## getPlayerState()
 This method will return the player state, that can be: playing, paused and loading.
 ```javascript
 player.getPlayerState()
 
-// Response Example:
-// playing
-// paused
-// loading
+// Responses Example:
+'playing'
+'paused'
+'loading'
 
 ```
 
-## Set Custom JSON: setCustomJSON(customJSON)
-This method will let you change the custom JSON of the animation. You will only need to pass the new custom JSON..
+
+
+## destroy()
+Destroy the player and remove all event listeners.
 ```javascript
-player.setCustomJSON(customJSON)
+player.destroy()
 ```
 
-## Set Composition: setComposition(compositionId)
-This method will let you change the composition of your template. You will only need to pass the composition Id.
+## Advanced Methods
+
+## getIframe()
+This method will return the iframe HTML element.
 ```javascript
-player.setComposition(compositionId)
+player.getIframe()
 ```
 
-## Set Animation Size: setSize({ height, width })
-This method will let you set the size of animation. You will need to pass the height and width desired, you don't need to pass both of them. The player will always make sure the aspect ratio of the animation is preserved, so it will fit the dimensions passed.
-```javascript
-player.setSize({ height, width })
-```
+# Support
 
-## Set Template: setTemplate(templateId, compositionId, customJSON)
-This change the template of the animation. You will need to pass the template Id, the composition Id, the custom JSON are optional in case you don't want the default composition or you want to update the default custom JSON.
-```javascript
-player.setTemplate(templateId, compositionId, customJSON)
-```
+Please read the API documentation available on [Videomatik website](https://videomatik.com.br) or contact the developers through our Discord server, (invite available at our website).
