@@ -18,7 +18,7 @@ you can start using this project by instantiating the main class.
 ```javascript
 import VideomatikPlayer from '@videomatik/player';
 
-const player = new VideomatikPlayer({
+const player = new VideomatikPlayer('<css selector or HTMLElement instance>', {
   apiKey: '< your api key >',
   templateId: '< your template id >', 
   compositionId: '< the selected composition id >', 
