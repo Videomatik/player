@@ -11,6 +11,7 @@ class VideomatikPlayer {
     } = options;
     const container = document.querySelector(containerSelector);
     const iframe = document.createElement('iframe');
+    iframe.style.border = 'none';
     iframe.setAttribute('src', `${__playerURL}/v1?templateId=${templateId}&apiKey=${apiKey}&compositionId=${compositionId}`);
 
     iframe.width = maxWidth;
