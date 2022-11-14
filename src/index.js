@@ -2,7 +2,7 @@
 class VideomatikPlayer {
   constructor(containerSelector, options) {
     const {
-      __playerURL,
+      __playerURL = 'https://player.videomatik.com.br',
       apiKey,
       templateId,
       compositionId = 'default',
