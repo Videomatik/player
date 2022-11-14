@@ -18,7 +18,7 @@ const getContainer = (containerSelectorOrElement) => {
 class VideomatikPlayer {
   constructor(containerSelectorOrElement, options) {
     const {
-      __playerURL,
+      __playerURL = 'https://player.videomatik.com.br/v1',
       apiKey,
       templateId,
       compositionId = 'default',
@@ -28,7 +28,7 @@ class VideomatikPlayer {
     const container = getContainer(containerSelectorOrElement);
     const iframe = document.createElement('iframe');
     iframe.style.border = 'none';
-    iframe.setAttribute('src', `${__playerURL}/v1?templateId=${templateId}&apiKey=${apiKey}&compositionId=${compositionId}`);
+    iframe.setAttribute('src', `${__playerURL}?templateId=${templateId}&apiKey=${apiKey}&compositionId=${compositionId}`);
 
     iframe.width = maxWidth;
     iframe.height = maxHeight;
