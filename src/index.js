@@ -43,7 +43,7 @@ class VideomatikPlayer {
         break;
 
       case 'error':
-        throw new Error(data.payload.error);
+        throw new Error(data.payload.message);
     }
   };
 
