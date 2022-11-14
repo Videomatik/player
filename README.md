@@ -16,10 +16,28 @@ npm i --save @videomatik/player@latest
 
 # Usage
 
-Simple usage example rendering the player inside a div element:
+Simple usage example rendering the player inside a div element. Considering this html:
 
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="my-player">
+    </div>
+  </body>
+</html>
+```
+
+The corresponding JavaScript code is:
 ```javascript
-TODO
+import VideomatikPlayer from '@videomatik/player';
+
+const player = new VideomatikPlayer('#my-player', {
+  apiKey: '',
+  templateId: 'conheca-a-italia', 
+  compositionId: 'default', 
+});
+
 ```
 
 ## Authentication
