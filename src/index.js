@@ -61,8 +61,8 @@ class VideomatikPlayer {
   }
 
   // TODO: seguir o padrão com Payload: data.payload = {'frame': frame}
-  seekTo(frame) {
-    this.iframe.contentWindow.postMessage({ action: 'seekTo', frame }, '*');
+  seekTo(time) {
+    this.iframe.contentWindow.postMessage({ action: 'seekTo', time }, '*');
   }
 
   setCustomJSON(customJSON) {
