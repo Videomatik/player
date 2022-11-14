@@ -60,7 +60,7 @@ class VideomatikPlayer {
         break;
 
       case 'error':
-        throw new Error(data.payload.error);
+        throw new Error(data.payload.message);
     }
   };
 
@@ -77,6 +77,7 @@ class VideomatikPlayer {
     this.iframe.contentWindow.postMessage({ action: 'pause' }, '*');
   }
 
+  // TODO: seguir o padrão com Payload: data.payload = {'frame': frame}
   seekTo(time) {
     this.iframe.contentWindow.postMessage({ action: 'seekTo', time }, '*');
   }
