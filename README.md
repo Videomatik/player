@@ -143,8 +143,45 @@ Destroy the player and remove all event listeners.
 This method will return the iframe HTML element.
 
 ## Error Handling
-//TODO
 
+### API Errors
+- On player instace
+
+When creating the player instance, it's necessary to use a Valid API Key. Check 
+
+```javascript
+{
+  message: 'Invalid API Key: < your api key >'
+}
+```
+- On set Template
+
+When an invalid template Id is passed for the VideomatikPlayer or for the setTemplate method, the Player will return the following error:
+
+```javascript
+{
+  message: 'Template not found: < your template id >',
+}
+```
+
+- On set Template Composition
+
+When an invalid composition Id is passed for the VideomatikPlayer or for the setComposition method, the Player will return the following error. You can access the valid compositions with the getComposition method.
+```javascript
+{
+  message: 'Composition not found: < the selected composition id >',
+}
+```
+### Render errors
+- Invalid custom JSON
+
+When an invalid custom JSON is passed for the setCustomJson method, the Player will return the following error:
+
+```javascript
+{
+  message: 'Invalid CustomJSON, verify CustomJSON fields.',
+}
+```
 # Support
 
 Please read the API documentation available on [Videomatik website](https://videomatik.com.br) or contact the developers through our Discord server, (invite available at our website).
