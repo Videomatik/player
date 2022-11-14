@@ -1,6 +1,22 @@
+const getContainer = (containerSelectorOrElement) => {
+  if (typeof containerSelectorOrElement === 'string') {
+    const container = document.querySelector(containerSelectorOrElement);
+    if (!container) {
+      throw new Error(`Container Selector: "${containerSelectorOrElement}" could not be found in the DOM`);
+    }
+    return container;
+  }
+
+  if (containerSelectorOrElement instanceof HTMLElement) {
+    return containerSelectorOrElement;
+  }
+
+  throw new Error('Container must be a HTMLElement or a Selector string');
+};
+
 /* eslint-disable no-underscore-dangle */
 class VideomatikPlayer {
-  constructor(containerSelector, options) {
+  constructor(containerSelectorOrElement, options) {
     const {
       __playerURL,
       apiKey,
@@ -9,7 +25,7 @@ class VideomatikPlayer {
       maxHeight = '100%',
       maxWidth = '100%',
     } = options;
-    const container = document.querySelector(containerSelector);
+    const container = getContainer(containerSelectorOrElement);
     const iframe = document.createElement('iframe');
     iframe.setAttribute('src', `${__playerURL}/v1?templateId=${templateId}&apiKey=${apiKey}&compositionId=${compositionId}`);
 
