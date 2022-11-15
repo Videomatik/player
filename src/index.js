@@ -22,16 +22,16 @@ class VideomatikPlayer {
       apiKey,
       templateId,
       compositionId = 'default',
-      maxHeight = '100%',
-      maxWidth = '100%',
+      height = 1024,
+      width = 576,
     } = options;
     const container = getContainer(containerSelectorOrElement);
     const iframe = document.createElement('iframe');
     iframe.style.border = 'none';
     iframe.setAttribute('src', `${__playerURL}?templateId=${templateId}&apiKey=${apiKey}&compositionId=${compositionId}`);
 
-    iframe.width = maxWidth;
-    iframe.height = maxHeight;
+    iframe.width = width;
+    iframe.height = height;
     container.appendChild(iframe);
 
     this.iframe = iframe;
