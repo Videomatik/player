@@ -77,21 +77,20 @@ class VideomatikPlayer {
     this.iframe.contentWindow.postMessage({ action: 'pause' }, '*');
   }
 
-  // TODO: seguir o padrão com Payload: data.payload = {'frame': frame}
   seekTo(time) {
-    this.iframe.contentWindow.postMessage({ action: 'seekTo', time }, '*');
+    this.iframe.contentWindow.postMessage({ action: 'seekTo', payload: { time } }, '*');
   }
 
   setCustomJSON(customJSON) {
     // TODO: controlar o estado de loading adequadamente
     // this.playerState = 'loading';
-    this.iframe.contentWindow.postMessage({ action: 'setCustomJSON', customJSON }, '*');
+    this.iframe.contentWindow.postMessage({ action: 'setCustomJSON', payload: { customJSON } }, '*');
   }
 
   setComposition(compositionId) {
     // TODO: controlar o estado de loading adequadamente
     // this.playerState = 'loading';
-    this.iframe.contentWindow.postMessage({ action: 'setComposition', compositionId }, '*');
+    this.iframe.contentWindow.postMessage({ action: 'setComposition', payload: { compositionId } }, '*');
   }
 
   setSize({ height, width }) {
@@ -106,9 +105,11 @@ class VideomatikPlayer {
   setTemplate(templateId, compositionId, customJSON) {
     this.iframe.contentWindow.postMessage({
       action: 'setTemplate',
-      customJSON,
-      templateId,
-      compositionId: compositionId || 'default',
+      payload: {
+        customJSON,
+        templateId,
+        compositionId: compositionId || 'default',
+      },
     }, '*');
   }
 
