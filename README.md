@@ -16,28 +16,20 @@ npm i --save @videomatik/player@latest
 
 # Usage
 
-Simple usage example rendering the player inside a div element. Considering this html:
+Simple usage example rendering the player inside a div element. 
 
-```html
-<!DOCTYPE html>
-<html>
-  <body>
-    <div id="my-player">
-    </div>
-  </body>
-</html>
-```
-
-The corresponding JavaScript code is:
 ```javascript
 import VideomatikPlayer from '@videomatik/player';
 
-const player = new VideomatikPlayer('#my-player', {
-  apiKey: '',
+const player = new VideomatikPlayer('#videomatik-player', {
+  apiKey: 'WDSi8lOCua5KKzPvzx2DI86medihfQj0U8T--qSm',
   templateId: 'conheca-a-italia', 
   compositionId: 'default', 
+  height: 1280,
+  width: 720,
 });
 
+<div id="videomatik-player"></div>
 ```
 
 ## Authentication
@@ -46,12 +38,12 @@ First, you should get your Videomatik API **Api Key** on your [Account Settings]
 you can start using this project by instantiating the main class.
 
 ```javascript
-import VideomatikPlayer from '@videomatik/player';
-
 const player = new VideomatikPlayer('<css selector or HTMLElement instance>', {
   apiKey: '< your api key >',
   templateId: '< your template id >', 
   compositionId: '< the selected composition id >', 
+  height: 1024, // default size
+  width: 576, // default size
 });
 ```
 
@@ -160,40 +152,22 @@ Destroy the player and remove all event listeners.
 ## getIframe()
 This method will return the iframe HTML element.
 
-## Error Handling
+# Error Handling
 
-### API Errors
-- On player instace
+## Player API Errors
 
-When creating the player instance, it's necessary to use a Valid API Key. Check 
+There are three known errors you can receive from our API.
 
-```javascript
-{
-  message: 'Invalid API Key: < your api key >'
-}
-```
-- On set Template
+| Error type            | When                                                                                                                        |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Invalid API Key       | Occurs when player is creating if you set an invalid key.                                                                   |
+| Template not found    | Occurs when player is creating or you are setting a new template.                                                           |
+| Composition not found | Occurs when player is creating or setting a new template or composition. Find valid compositions on getCompositions method. |
 
-When an invalid template Id is passed for the VideomatikPlayer or for the setTemplate method, the Player will return the following error:
+## Render errors
+### Invalid custom JSON
 
-```javascript
-{
-  message: 'Template not found: < your template id >',
-}
-```
-
-- On set Template Composition
-
-When an invalid composition Id is passed for the VideomatikPlayer or for the setComposition method, the Player will return the following error. You can access the valid compositions with the getComposition method.
-```javascript
-{
-  message: 'Composition not found: < the selected composition id >',
-}
-```
-### Render errors
-- Invalid custom JSON
-
-When an invalid custom JSON is passed for the setCustomJson method, the Player will return the following error:
+When an invalid custom JSON is passed for the setCustomJson method or when creating the player, the Player will return the following error:
 
 ```javascript
 {
