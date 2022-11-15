@@ -42,8 +42,31 @@ const player = new VideomatikPlayer('<css selector or HTMLElement instance>', {
   apiKey: '< your api key >',
   templateId: '< your template id >', 
   compositionId: '< the selected composition id >', 
-  height: 1024, // default size
-  width: 576, // default size
+});
+```
+
+## Options
+
+WIP: More player options available in the future.
+See a preview of future options below:
+
+```javascript
+const player = new VideomatikPlayer('#player', {
+  apiKey: 'apiKey',
+  templateId: 'templateId', 
+  compositionId: 'compositionId',
+  customJSON: {...}, // Optional, initial customJSON when load
+  options: {
+    autoplay: true, // default
+    loaderColor: '#fffff',
+    disabledLoader: false, // default
+    pauseOnClick: true, // default
+    progressUpdateInterval: 100, // default in miliseconds
+  },
+  events: {
+    'onLoad' ()=>{},
+    ...
+  }
 });
 ```
 
