@@ -1,7 +1,7 @@
 # Videomatik Player SDK (Alpha!)
 
 ```
-⚠ This lib is current in alpha version and still in development, we are accepting feedbacks from the developers. ⚠
+⚠ This lib is currently in alpha version and still in development, we are accepting feedback from the developers. ⚠
 ```
 
 This module provides easy access to Videomatik's Player to get a preview of your video template with your customizations via the customJSON data.
@@ -61,7 +61,7 @@ const player = new VideomatikPlayer('#player', {
     loaderColor: '#fffff',
     disabledLoader: false, // default
     pauseOnClick: true, // default
-    progressUpdateInterval: 100, // default in miliseconds
+    progressUpdateInterval: 100, // default in milliseconds
   },
   events: {
     'onLoad' ()=>{},
@@ -72,7 +72,7 @@ const player = new VideomatikPlayer('#player', {
 
 ## Templates and CustomJSON
 
-If you are not familiar with the Template and CustomJSON entities for Videomatik, please check our [API SDK documentation](https://github.com/Videomatik/node-sdk) for more information. The same concept of customJSON applys to the Videomatik Player.
+If you are not familiar with the Template and CustomJSON entities for Videomatik, please check our [API SDK documentation](https://github.com/Videomatik/node-sdk) for more information. The same concept of customJSON applies to the Videomatik Player.
 
 
 # Update Player Methods
@@ -139,7 +139,7 @@ player.setCustomJSON({
 # Player Methods
 
 ## setSize({ height: Number, width: Number })
-Updates the size of the video player. Only one dimension is required. The player will fit the dimension specified keep the video aspect ratio.  
+Updates the size of the video player. Only one dimension is required. The player will fit the dimension specified and keep the video aspect ratio.  
 Example:
 ```javascript
 player.setSize({ height: 1280, width: 720 })
