@@ -22,13 +22,23 @@ class VideomatikPlayer {
       apiKey,
       templateId,
       compositionId = 'default',
+      customJSON,
       height = 1024,
       width = 576,
     } = options;
     const container = getContainer(containerSelectorOrElement);
     const iframe = document.createElement('iframe');
     iframe.style.border = 'none';
-    iframe.setAttribute('src', `${__playerURL}?templateId=${templateId}&apiKey=${apiKey}&compositionId=${compositionId}`);
+
+    const urlParamsObj = {
+      templateId,
+      apiKey,
+      compositionId,
+      // prevent player to load original animation and reload new animation with user customJSON
+      preventLoad: Boolean(customJSON),
+    };
+    const urlParams = new URLSearchParams(urlParamsObj);
+    iframe.setAttribute('src', `${__playerURL}?${urlParams.toString()}`);
 
     iframe.width = width;
     iframe.height = height;
@@ -38,6 +48,8 @@ class VideomatikPlayer {
     this.__playerURL = __playerURL;
     this.templateId = templateId;
     this.apiKey = apiKey;
+    this.customJSON = customJSON;
+    this.isFirstLoad = true;
 
     window.addEventListener('message', this.onMessage);
   }
@@ -49,6 +61,14 @@ class VideomatikPlayer {
       case '_onLoad':
         this.compositions = data.payload.compositions;
         this.duration = data.payload.duration;
+        // TODO: insert next onFirstLoad logics bellow
+        if (this.isFirstLoad) {
+          if (this.customJSON) {
+            this.setCustomJSON(this.customJSON);
+          }
+          this.isFirstLoad = false;
+          this.iframe.contentWindow.postMessage({ action: '_initialize' }, '*');
+        }
         break;
 
       case 'currentTime':
