@@ -71,6 +71,11 @@ class VideomatikPlayer {
         }
         break;
 
+      case '_setIframeSize':
+        this.iframe.height = data.payload.height;
+        this.iframe.width = data.payload.width;
+        break;
+
       case 'currentTime':
         this.currentTime = data.payload.currentTime;
         break;
