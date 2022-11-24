@@ -34,7 +34,7 @@ const player = new VideomatikPlayer('#videomatik-player', {
 
 ## Authentication
 
-First, you should get your Videomatik API **Api Key** on your [Account Settings](https://videomatik.com.br/settings/), then
+First, you should get your Videomatik **API Key** on the [Dashboard page](https://dashboard.videomatik.com.br/api-keys/), then
 you can start using this project by instantiating the main class.
 
 ```javascript
@@ -64,7 +64,7 @@ const player = new VideomatikPlayer('#player', {
     progressUpdateInterval: 100, // default in milliseconds
   },
   events: {
-    'onLoad' ()=>{},
+    'onLoad' () => {},
     ...
   }
 });
@@ -91,7 +91,8 @@ player.setTemplate(templateId, compositionId, customJSON)
 
 ## getCompositions()
 Returns the compositions available for the current video Template. Returns `Array[Object]`.  
-Example
+
+Example:
 ```javascript
 player.getCompositions()
 
@@ -113,8 +114,10 @@ player.getCompositions()
 ```
 
 ## setComposition(compositionId: String)
-- compositionId: Id of the Composition to set
-Change the composition of your template, it will load the new composition video if not loaded yet.  
+- compositionId: Id of the Composition to set.
+
+Change the composition of your template. It will load the new composition video if not loaded yet.
+
 Example:
 ```javascript
 player.setComposition('feed')
@@ -123,7 +126,8 @@ player.setComposition('feed')
 ## setCustomJSON(customJSON: Object)
 - customJSON`: Valid customJSON object with customized parameters for the video.
 
-Updates the custom JSON of the video.  
+Updates the custom JSON of the video.
+
 Example:
 ```javascript
 player.setCustomJSON({
@@ -139,25 +143,26 @@ player.setCustomJSON({
 # Player Methods
 
 ## setSize({ height: Number, width: Number })
-Updates the size of the video player. Only one dimension is required. The player will fit the dimension specified and keep the video aspect ratio.  
+Updates the size of the video player. Only one dimension is required. The player will fit the dimension specified and keep the video aspect ratio.
+
 Example:
 ```javascript
 player.setSize({ height: 1280, width: 720 })
 ```
 
 ## getCurrentTime()
-This method will return the current time(seconds) of the video.
+This method will return the current time of the video (in seconds).
 
 ## getDuration()
-This method will return the total duration in seconds of the video. It will return the value in seconds.
+This method will return the total duration of the video (in seconds).
 
 ## play()
-Play the video player.
+Play the video.
 
 ## pause()
-Pause the video player.
+Pause the video.
 ## seekTo(time: Number)
- - time: in Seconds
+ - time **in seconds**
 
 Sets the current time of the player. The time must be between 0 and the video duration.  
 Example: 
@@ -181,16 +186,16 @@ This method will return the iframe HTML element.
 
 There are three known errors you can receive from our API.
 
-| Error type            | When                                                                                                                        |
+| Error type            | Occurs                                                                                                                        |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| Invalid API Key       | Occurs when player is creating if you set an invalid key.                                                                   |
-| Template not found    | Occurs when player is creating or you are setting a new template.                                                           |
-| Composition not found | Occurs when player is creating or setting a new template or composition. Find valid compositions on getCompositions method. |
+| Invalid API Key       | When the player is being created. Check your [Dashboard's page](https://dashboard.videomatik.com.br/api-keys/) to get the correct API key.     |
+| Template not found    | When the player is being created or when you are setting a new template. Check your [Dashboard's page](https://dashboard.videomatik.com.br/templates/) to get the ID of the desired template.                                           |
+| Composition not found | When the player is being created or when you are setting a new template or composition. Find valid compositions on `getCompositions()` method. |
 
 ## Render errors
 ### Invalid custom JSON
 
-When an invalid custom JSON is passed for the setCustomJson method or when creating the player, the Player will return the following error:
+When an invalid custom JSON is passed to the `setCustomJson()` method or when creating the player, the Player will return the following error:
 
 ```javascript
 {
@@ -199,4 +204,4 @@ When an invalid custom JSON is passed for the setCustomJson method or when creat
 ```
 # Support
 
-Please read the API documentation available on [Videomatik website](https://videomatik.com.br) or contact the developers through our Discord server, (invite available at our website).
+Please read the API documentation available on [Videomatik's website](https://videomatik.com.br) or contact the developers through our Discord server (invite link available at our website).
