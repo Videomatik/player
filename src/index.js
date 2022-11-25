@@ -71,6 +71,11 @@ class VideomatikPlayer {
         }
         break;
 
+      case '_setIframeSize':
+        this.iframe.height = data.payload.height;
+        this.iframe.width = data.payload.width;
+        break;
+
       case 'currentTime':
         this.currentTime = data.payload.currentTime;
         break;
@@ -120,6 +125,17 @@ class VideomatikPlayer {
     if (width) {
       this.iframe.width = width;
     }
+    // Use a post message to resize the animation and the player, because
+    // using an resize event listener causes a infinite resize loop:
+    //
+    // Example:
+    //
+    // - A resize is triggered from external player (via "setSize" function)
+    // - This leads to a resize happening in the internal player
+    //   - The internal player sends a postMessage to the outside player to
+    //     resize the external player to fit perfectly within the animation
+    //   - The outside iframe resize causes the cycle to happen again.
+    this.iframe.contentWindow.postMessage({ action: '_resize' }, '*');
   }
 
   setTemplate(templateId, compositionId, customJSON) {
