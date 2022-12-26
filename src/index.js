@@ -118,13 +118,12 @@ class VideomatikPlayer {
     this.iframe.contentWindow.postMessage({ action: 'setComposition', payload: { compositionId } }, '*');
   }
 
-  setSize({ height, width }) {
-    if (height) {
-      this.iframe.height = height;
-    }
-    if (width) {
-      this.iframe.width = width;
-    }
+  setSize({
+    // This fallback is used when the user omit one of the measurements
+    // with this the animation will always resize with the one who is declared
+    height = Infinity,
+    width = Infinity,
+  }) {
     // Use a post message to resize the animation and the player, because
     // using an resize event listener causes a infinite resize loop:
     //
@@ -135,7 +134,7 @@ class VideomatikPlayer {
     //   - The internal player sends a postMessage to the outside player to
     //     resize the external player to fit perfectly within the animation
     //   - The outside iframe resize causes the cycle to happen again.
-    this.iframe.contentWindow.postMessage({ action: '_resize' }, '*');
+    this.iframe.contentWindow.postMessage({ action: '_resize', payload: { width, height } }, '*');
   }
 
   setTemplate(templateId, compositionId, customJSON) {
