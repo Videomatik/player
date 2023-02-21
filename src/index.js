@@ -28,6 +28,7 @@ class VideomatikPlayer {
     } = options;
     const container = getContainer(containerSelectorOrElement);
     const iframe = document.createElement('iframe');
+    iframe.scrolling = 'no';
     iframe.style.border = 'none';
 
     const urlParamsObj = {
